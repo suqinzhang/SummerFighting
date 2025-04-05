@@ -1,0 +1,32 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine;
+
+ 
+    public class Skills : MonoBehaviour
+    {
+        public bool Iscd { get; set; } = true;
+        public static Action SkillAction { get; set; }
+        public float cd { get; set; }
+
+        public void UseSkill()
+        {
+            if (Iscd)
+            {
+                Iscd = false;
+                StartCoroutine(CoolDown());
+                SkillAction();
+            }
+        
+        }
+
+        IEnumerator CoolDown()
+        {
+            yield return new WaitForSeconds(3);
+            Iscd = true;
+        }
+    }
+
+

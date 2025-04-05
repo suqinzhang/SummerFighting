@@ -1,0 +1,37 @@
+﻿
+using System.Threading.Tasks;
+using MessagePack;
+using MessagePack.Resolvers;
+using Microsoft.AspNetCore.Http.Connections.Client;
+using Microsoft.AspNetCore.SignalR.Client;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+ 
+
+namespace Network
+{
+    public static class Messge  
+    {
+        public static HubConnection connection;
+        public static string Id_Self { get; set; }
+        public static string _myAccessToken { get; set; }
+        static Messge()
+       {
+           // 配置 MessagePack 选项
+           var messagePackOptions = MessagePackSerializerOptions.Standard
+               .WithResolver(ContractlessStandardResolver.Instance);
+            
+           connection = new HubConnectionBuilder()
+               .WithUrl("http://127.0.0.1:5130/Gamehub", options =>
+               {
+                   options.AccessTokenProvider = () => Task.FromResult(_myAccessToken);
+               })
+               .AddMessagePackProtocol(options =>
+               {
+                   options.SerializerOptions = messagePackOptions;
+               })
+               .Build();
+       }
+        
+    }
+}

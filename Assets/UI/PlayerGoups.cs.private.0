@@ -1,0 +1,47 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using MessagePack;
+using Microsoft.AspNetCore.SignalR.Client;
+using UnityEngine;
+using UnityEngine.UI;
+using zFramework.Internal;
+using static Network.Messge;
+using static zFramework.Internal.Loom;
+public class PlayerGoups : MonoBehaviour
+{
+    public Text left;
+    public Text right;
+    void Start()
+    {
+        //初始化默认配置，职业，皮肤
+        
+        //注册回调方法
+        connection.On<PlayerCTX>("SetGroup", SetGroup);
+    }
+
+    public async Task SetGroup(PlayerCTX ctx)
+    {
+        await ToMainThread;
+        if (ctx.isleft)
+        {
+            left.text = ctx.name;
+            right.text = Id_Self;
+        }
+        else
+        {
+            right.text = ctx.name;
+            left.text = Id_Self;
+        }
+    }
+    
+     
+}
+ 
+public class PlayerCTX
+{
+     
+    public string name { get; set; }
+     
+    public bool isleft { get; set; }
+}

@@ -1,0 +1,65 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Net;
+using LiteNetLib;
+using UnityEngine;
+ 
+public class Game_Run : MonoBehaviour, INetEventListener
+{
+      private NetManager client;
+      private List<NetPeer> serverPeers = new();
+
+      public void Start()
+      {
+            // 启动客户端
+            client = new NetManager(this);
+            client.Start(); // 不需要指定端口，系统会自动分配
+
+            // 连接第一个服务器
+            var serverPeer1 = client.Connect("192.168.52.114", 9050, "gamekey");
+            serverPeers.Add(serverPeer1);
+            Debug.Log("Client started and connected to two servers...");
+      }
+
+      private void Update()
+      { 
+            client.PollEvents();
+      }
+
+      public void OnConnectionRequest(ConnectionRequest request)
+      {     
+            
+      }
+
+      public void OnNetworkLatencyUpdate(NetPeer peer, int latency)
+      {
+            Debug.Log(peer.Ping+ latency);
+      }
+      
+      public void OnPeerConnected(NetPeer peer)
+      {
+            Debug.Log(peer);
+      }
+
+      public void OnPeerDisconnected(NetPeer peer, DisconnectInfo disconnectInfo)
+      {
+            Debug.Log(disconnectInfo);
+      }
+
+      public void OnNetworkError(IPEndPoint endPoint, System.Net.Sockets.SocketError socketError)
+      {
+             
+      }
+      
+      public void OnNetworkReceive(NetPeer peer, NetPacketReader reader, byte channelNumber, DeliveryMethod deliveryMethod)
+      {
+            string message = reader.GetString();
+      }
+
+      public void OnNetworkReceiveUnconnected(IPEndPoint remoteEndPoint, NetPacketReader reader, UnconnectedMessageType messageType)
+      {
+         
+      }
+   
+}

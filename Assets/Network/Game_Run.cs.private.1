@@ -1,0 +1,65 @@
+using System.Collections.Generic;
+using LiteNetLib;
+using UnityEngine;
+using System.Net;
+
+public class Game_Run : MonoBehaviour
+{
+    private NetManager client;
+    private List<NetPeer> serverPeers = new();
+
+    public void Start()
+    {
+        Debug.Log(1);
+        client = new NetManager(new EventListener());
+        client.Start();
+        var serverPeer1 = client.Connect("192.168.123.67", 9050, "gamekey");
+        serverPeers.Add(serverPeer1);
+        Debug.Log("Client started and connected to server...");
+    }
+
+    private void Update()
+    {
+        client.PollEvents();
+    }
+
+    private class EventListener : INetEventListener
+    {
+        public void OnConnectionRequest(ConnectionRequest request)
+        {
+            Debug.Log("Connection request received");
+            request.Accept();
+        }
+
+        public void OnNetworkLatencyUpdate(NetPeer peer, int latency)
+        {
+            Debug.Log("Network latency update: " + latency);
+        }
+
+        public void OnPeerConnected(NetPeer peer)
+        {
+            Debug.Log("Peer connected: " + peer);
+        }
+
+        public void OnPeerDisconnected(NetPeer peer, DisconnectInfo disconnectInfo)
+        {
+            Debug.Log("Peer disconnected: " + peer);
+        }
+
+        public void OnNetworkError(IPEndPoint endPoint, System.Net.Sockets.SocketError socketError)
+        {
+            Debug.LogError("Network error: " + socketError);
+        }
+
+        public void OnNetworkReceive(NetPeer peer, NetPacketReader reader, byte channelNumber, DeliveryMethod deliveryMethod)
+        {
+            string message = reader.GetString();
+            Debug.Log("Message received: " + message);
+        }
+
+        public void OnNetworkReceiveUnconnected(IPEndPoint remoteEndPoint, NetPacketReader reader, UnconnectedMessageType messageType)
+        {
+            Debug.Log("Unconnected message received");
+        }
+    }
+}

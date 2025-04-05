@@ -1,0 +1,93 @@
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.SignalR.Client;
+using UnityEngine;
+using UnityEngine.UI;
+using static Network.Messge;
+using static zFramework.Internal.Loom;
+
+public class Login : MonoBehaviour
+{
+    public InputField Id;
+    public InputField Passw;
+    public GameObject GameObject2;
+    public GameObject flist_prefeb;
+    public GameObject fapply_prefab;
+    public RectTransform compent;
+    public GameObject target2;
+    public GameObject target3;
+    public static List<ActorB> List{get;} = new List<ActorB>();
+
+    public class Infomation
+    {
+        public List<string> FriendList { get; set; }
+        public List<string> FriendApply { get; set; }
+        
+        public List<bool> Bools { get; set; }
+        
+    }
+     
+    
+    private void Start()
+    {
+       connection.On("Receive_login", (bool _msg) => Receive_login(_msg));
+       connection.On("Info", (Infomation info) => Info(info));
+    }
+    
+    //连接发送token
+    public void Send()
+    {
+        _myAccessToken = $"{Id.text}+{Passw.text}";
+        connection.StartAsync();
+    }
+
+    private async Task Receive_login(bool msg)
+    {
+        await ToMainThread;
+      
+            if (msg)
+            {
+                GameObject2.SetActive(false);
+                Id_Self = Id.text;
+            }
+            else
+            {
+                Debug.Log("密码错误重新登入");
+            }
+        
+    }
+
+    public async Task Info(Infomation info)
+    {
+        await ToMainThread;
+        
+        foreach (var friend in info.FriendList)
+        {
+            GameObject item = Instantiate(flist_prefeb,compent);
+            item.name = "friend";
+            int targetIndex = target3.transform.GetSiblingIndex();
+            item.transform.SetSiblingIndex(targetIndex+1);
+            Text itemText = item.transform.Find("item_text").GetComponent<Text>();
+            itemText.text = $"{friend}";
+            item.GetComponent<Invite_Friend>().Id = itemText.text;
+        }
+
+        foreach (var apply in info.FriendApply)
+        {
+            GameObject item = Instantiate(fapply_prefab,compent);
+            item.name = "apply";
+            int targetIndex = target2.transform.GetSiblingIndex();
+            item.transform.SetSiblingIndex(targetIndex+1);
+            Text itemText =  item.transform.Find("item_text").GetComponent<Text>();
+            itemText.text = $"{apply}";
+        }
+        for (int i = 0; i < info.Bools.Count; i++)
+        {
+            List[i].IsOwned = info.Bools[i];
+        }
+        
+    }
+    
+  
+}

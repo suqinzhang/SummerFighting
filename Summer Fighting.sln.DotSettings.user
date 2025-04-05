@@ -1,0 +1,8 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
+  &lt;PhysicalFolder Path="C:\Users\86133\.nuget\packages\spannetty.common\0.7.2012.2221" Loaded="True" /&gt;&#xD;
+  &lt;PhysicalFolder Path="C:\Users\86133\Favorites\gameDemo\Summer Fighting\packages\SpanNetty.Common.0.7.2012.2221" Loaded="True" /&gt;&#xD;
+  &lt;Assembly Path="C:\Users\86133\Favorites\gameDemo\Summer Fighting\Assets\Packages\SpanNetty.Buffers.0.7.2012.2221\lib\netstandard2.1\DotNetty.Buffers.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Users\86133\Favorites\gameDemo\Summer Fighting\Assets\Packages\SpanNetty.Codecs.Http.0.7.2012.2221\lib\netstandard2.1\DotNetty.Codecs.Http.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Users\86133\Favorites\gameDemo\Summer Fighting\Library\ScriptAssemblies\com.bshsf.loom.dll" /&gt;&#xD;
+&lt;/AssemblyExplorer&gt;</s:String></wpf:ResourceDictionary>

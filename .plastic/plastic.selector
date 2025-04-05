@@ -1,0 +1,4 @@
+repository "Summer Fighting@zhangtianao@cloud.cn"
+  path "/"
+    br "/main"
+    co "/main"

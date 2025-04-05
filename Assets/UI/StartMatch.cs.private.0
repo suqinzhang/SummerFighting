@@ -1,0 +1,13 @@
+
+using Microsoft.AspNetCore.SignalR.Client;
+using UnityEngine;
+using Network;
+
+public class StartMatch : MonoBehaviour
+{
+    //开始游戏，进入匹配队列
+    public void Start_Match()
+    {
+        Messge.connection.SendAsync("Start_Match");
+    }
+}

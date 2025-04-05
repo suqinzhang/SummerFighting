@@ -1,0 +1,30 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UIElements;
+
+public class ActorB : MonoBehaviour,IPointerClickHandler
+{
+    
+    public bool IsOwned { get; set; }
+    
+    void Awake()
+    {
+        Login.List.Add(this);
+    }
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (IsOwned)
+        {
+            
+        }
+    }
+    //技能具体实现
+    public void Skill()
+    {
+        
+    }
+    
+    
+}

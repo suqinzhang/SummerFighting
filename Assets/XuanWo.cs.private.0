@@ -1,0 +1,77 @@
+
+using System.Collections;
+using Unity.Mathematics;
+using UnityEngine;
+
+public class XuanWo : MonoBehaviour
+{
+   /* public NewBehaviourScript players;
+     
+    void Start()
+    {
+        gameObject.SetActive(true);
+         foreach (var p in players.PlayersMap)
+        {
+            StartCoroutine(Force1(p.Key));
+        }
+         
+    }
+    
+   //如果不想抖动，可以插值平滑，其实没必要！！！麻烦。
+
+   IEnumerator Force1(Transform t)
+    {
+        while (true)
+        {
+            if (IsinCircle(t))
+            {
+                
+                for (int i = 0; i < 30; i++)
+                {
+                    if(math.pow(t.position.x - transform.position.x, 2) +
+                       math.pow(t.position.y - transform.position.y, 2) <= 10f)
+                    {
+                        t.position = transform.position;
+                    }
+                    Vector2 v= new Vector2(t.position.x - transform.position.x, t.position.y - transform.position.y).normalized;
+                   t.Translate(Time.deltaTime*15*-v);
+                    yield return null;
+                }
+                
+            }
+            yield return new WaitForSeconds(0.3f); // 等待0.5秒
+
+        }
+    }
+ 
+   /*  private void Update()
+      {
+          foreach (var p in players.PlayersMap)
+          {
+              if (IsinCircle(p.Key))
+              {
+                   Force(p.Key);
+              }
+          }
+      }
+
+      public void Force(Transform t)
+      {
+          Vector2 v= new Vector2(t.position.x - transform.position.x, t.position.y - transform.position.y).normalized;
+          t.Translate(Time.deltaTime*15*-v);
+      }
+  
+*/
+         bool IsinCircle(Transform player)
+        {
+            if (math.pow(player.position.x - transform.position.x, 2) +
+                math.pow(player.position.y - transform.position.y, 2) <= 800f)
+            {
+                return true;
+            }
+
+            return false;
+
+        }
+
+    }
